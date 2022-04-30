@@ -8,7 +8,6 @@ const ProductScreen = () => {
   const params = useParams();
 
   const product = products.find(p => p._id === params.id)
-  // console.log(product);
 
 
   return (
