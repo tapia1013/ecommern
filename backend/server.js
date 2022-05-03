@@ -1,13 +1,18 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
-import products from './data/products.js';
 import colors from 'colors';
+
+import productRoutes from './routes/productRoutes.js';
+import {
+  errorHandler,
+  notFound
+} from './middleware/errorMiddleware.js'
 
 
 dotenv.config();
 
-connectDB()
+connectDB();
 
 const app = express();
 
@@ -15,16 +20,15 @@ app.get('/', (req, res) => {
   res.send('API is Running...')
 })
 
-// API Route for Products
-app.get('/api/products', (req, res) => {
-  res.json(products)
-})
+// Mount routes from productRoutes with app.use
+app.use('/api/products', productRoutes)
 
-// API Route to get single product by Id
-app.get('/api/products/:id', (req, res) => {
-  const product = products.find(p => p._id === req.params.id)
-  res.json(product)
-})
+
+
+// Error middlewares
+app.use(notFound)
+app.use(errorHandler)
+
 
 
 const PORT = process.env.PORT || 5000
