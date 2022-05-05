@@ -22,7 +22,7 @@ export const userLoginReducer = (state = {}, action) => {
 
     case USER_LOGIN_FAIL:
       return {
-        loading: false.valueOf,
+        loading: false,
         error: action.payload
       }
 
