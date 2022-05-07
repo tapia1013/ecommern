@@ -95,7 +95,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     dispatch({ type: USER_DETAILS_REQUEST });
 
     // destructure userLogin when destructuring getState. nested Destructure
-    const { userLogin: { userInfo } } = getState
+    const { userLogin: { userInfo } } = getState()
 
     const config = {
       headers: {
