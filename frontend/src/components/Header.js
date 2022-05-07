@@ -14,9 +14,7 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch(logout());
-    console.log('clicked');
   }
-
 
   return (
     <header>
