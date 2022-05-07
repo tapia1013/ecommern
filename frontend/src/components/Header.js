@@ -1,63 +1,67 @@
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-// import { LinkContainer } from 'react-router-bootstrap'
-
+import { LinkContainer } from 'react-router-bootstrap';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { logout } from '../actions/userActions';
 
 
-const Header = () => {
-  const dispatch = useDispatch()
+const Header = ({ }) => {
+  const dispatch = useDispatch();
 
-  const userLogin = useSelector(state => state.userLogin);
+  const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
+
   const logoutHandler = () => {
-    dispatch(logout());
+    dispatch(logout())
   }
 
   return (
     <header>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar bg='light' variant='light' expand='lg' collapseOnSelect>
         <Container>
-          <Navbar.Brand as={Link} to='/'>Pro-Shop</Navbar.Brand>
+          <LinkContainer to='/'>
+            <Navbar.Brand>ElectroShop</Navbar.Brand>
+          </LinkContainer>
 
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
 
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ml-auto'>
-              <Nav.Link as={Link} to='/cart'>
-                <i className='fas fa-shopping-cart'></i> Cart
-              </Nav.Link>
+              <LinkContainer to='/cart'>
+                <Nav.Link style={{ fontSize: '0.8rem', fontWeight: '700' }} href='/cart'>
+                  <i className='fas fa-shopping-cart'></i> Cart
+                </Nav.Link>
+              </LinkContainer>
 
               {
                 userInfo
                   ? (
                     <NavDropdown title={userInfo.name} id='username'>
-                      <Nav.Link style={{ color: 'black' }} as={Link} to='/profile'>
-                        Profile
-                      </Nav.Link>
+                      <LinkContainer to='/profile'>
+                        <NavDropdown.Item>Profile</NavDropdown.Item>
+                      </LinkContainer>
 
-                      <Nav.Link
-                        style={{ color: 'black', cursor: 'pointer' }}
-                        as={'span'}
-                        onClick={logoutHandler}>
+                      <NavDropdown.Item onClick={logoutHandler}>
                         Logout
-                      </Nav.Link>
+                      </NavDropdown.Item>
                     </NavDropdown>
                   )
                   : (
-                    <Nav.Link as={Link} to='/login'>
-                      <i className='fas fa-user'></i> Sign In
-                    </Nav.Link>
+                    <LinkContainer to='/login'>
+                      <Nav.Link href='/login'>
+                        <i className='fas fa-user'></i> Sign In
+                      </Nav.Link>
+                    </LinkContainer>
                   )
               }
+
 
             </Nav>
           </Navbar.Collapse>
         </Container>
-      </Navbar>
-    </header>
+      </Navbar >
+    </header >
   )
 }
 
